@@ -1,3 +1,4 @@
+
 pull_request_rules:
   # If you add the label `automerge` on a PR, it will be merged automatically
   - name: automatic merge
@@ -16,16 +17,6 @@ pull_request_rules:
       queue:
         name: hotfix
 
-  - name: automatic queue (default)
-    conditions:
-      - label = mergeable
-      - label != hotfix
-      - label != lowprio
-    actions:
-      queue:
-        name: default
-        merge_method: fast-forward
-
   - name: automatic queue (lowprio)
     conditions:
       - label = mergeable
@@ -43,14 +34,16 @@ queue_rules:
     merge_conditions:
       - check-success = test
       - check-success = test-before-merge
-
   - name: default
     allow_inplace_checks: false
     queue_conditions:
       - check-success = test
+      - label = mergeable
+      - label != hotfix
+      - label != lowprio
     merge_conditions:
       - check-success = test-before-merge
-
+    merge_method: fast-forward
   - name: lowprio
     batch_size: 3
     batch_max_wait_time: 1 min
@@ -59,14 +52,13 @@ queue_rules:
       - check-success = test
     merge_conditions:
       - check-success = test-before-merge
-
 merge_queue:
   max_parallel_checks: 5
 priority_rules:
   - name: priority for queue `hotfix`
     conditions:
       - check-success = test
-    priority: 2500
+    priority: 2750
   - name: priority for queue `default`
     conditions:
       - queue-name=default
