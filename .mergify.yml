@@ -41,7 +41,6 @@ queue_rules:
   #     - check-success = test
   #     - check-success = test-before-merge
   - name: default
-    allow_inplace_checks: false
     queue_conditions:
       - check-success = test
       - label = enqueue
