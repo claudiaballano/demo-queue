@@ -51,7 +51,6 @@ queue_rules:
       # - label != lowprio
     merge_conditions:
       - check-success = test-before-merge
-    merge_method: fast-forward
   # - name: lowprio
   #   batch_size: 3
   #   batch_max_wait_time: 1 min
