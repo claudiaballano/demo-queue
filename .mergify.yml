@@ -11,8 +11,8 @@ pull_request_rules:
     conditions:
       - label = enqueue
     actions:
-      merge:
-        method: merge
+      queue:
+        name: default
 
   # If you add the label `autoqueue` on a PR, it will be queued automatically
   # - name: automatic queue (hotfix)
@@ -47,8 +47,8 @@ queue_rules:
     queue_conditions:
       - check-success = test
       - label = enqueue
-      - label != hotfix
-      - label != lowprio
+      # - label != hotfix
+      # - label != lowprio
     merge_conditions:
       - check-success = test-before-merge
     merge_method: fast-forward
