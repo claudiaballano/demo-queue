@@ -47,8 +47,8 @@ queue_rules:
     queue_conditions:
       - check-success = test
       - label = enqueue
-      - label != hotfix
-      - label != lowprio
+      # - label != hotfix
+      # - label != lowprio
     merge_conditions:
       - check-success = test-before-merge
     merge_method: fast-forward
