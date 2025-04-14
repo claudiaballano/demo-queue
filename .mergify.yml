@@ -1,4 +1,3 @@
-
 pull_request_rules:
   # If you add the label `automerge` on a PR, it will be merged automatically
   - name: automatic merge
@@ -58,7 +57,7 @@ priority_rules:
   - name: priority for queue `hotfix`
     conditions:
       - check-success = test
-    priority: 2750
+    priority: 3000
   - name: priority for queue `default`
     conditions:
       - queue-name=default
