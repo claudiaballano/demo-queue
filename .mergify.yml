@@ -7,57 +7,65 @@ pull_request_rules:
       merge:
         method: merge
 
-  # If you add the label `autoqueue` on a PR, it will be queued automatically
-  - name: automatic queue (hotfix)
+  - name: default
     conditions:
-      - label = mergeable
-      - label = hotfix
+      - label = enqueue
     actions:
-      queue:
-        name: hotfix
+      merge:
+        method: merge
 
-  - name: automatic queue (lowprio)
-    conditions:
-      - label = mergeable
-      - label = lowprio
-    actions:
-      queue:
-        name: lowprio
+  # If you add the label `autoqueue` on a PR, it will be queued automatically
+  # - name: automatic queue (hotfix)
+  #   conditions:
+  #     - label = enqueue
+  #     - label = hotfix
+  #   actions:
+  #     queue:
+  #       name: hotfix
+
+  # - name: automatic queue (lowprio)
+  #   conditions:
+  #     - label = enqueue
+  #     - label = lowprio
+  #   actions:
+  #     queue:
+  #       name: lowprio
+merge_queue:
+  max_parallel_checks: 5
 
 queue_rules:
-  - name: hotfix
-    allow_inplace_checks: false
-    queue_conditions: []
-    # This can be queued without passing the CI
-    # But we still required to pass before merging
-    merge_conditions:
-      - check-success = test
-      - check-success = test-before-merge
+  # - name: hotfix
+  #   allow_inplace_checks: false
+  #   queue_conditions: []
+  #   # This can be queued without passing the CI
+  #   # But we still required to pass before merging
+  #   merge_conditions:
+  #     - check-success = test
+  #     - check-success = test-before-merge
   - name: default
     allow_inplace_checks: false
     queue_conditions:
       - check-success = test
-      - label = mergeable
+      - label = enqueue
       - label != hotfix
       - label != lowprio
     merge_conditions:
       - check-success = test-before-merge
     merge_method: fast-forward
-  - name: lowprio
-    batch_size: 3
-    batch_max_wait_time: 1 min
-    allow_inplace_checks: false
-    queue_conditions:
-      - check-success = test
-    merge_conditions:
-      - check-success = test-before-merge
-merge_queue:
-  max_parallel_checks: 5
+  # - name: lowprio
+  #   batch_size: 3
+  #   batch_max_wait_time: 1 min
+  #   allow_inplace_checks: false
+  #   queue_conditions:
+  #     - check-success = test
+  #   merge_conditions:
+  #     - check-success = test-before-merge
+
 priority_rules:
-  - name: priority for queue `hotfix`
-    conditions:
-      - check-success = test
-    priority: 3000
+  # - name: priority for queue `hotfix`
+  #   conditions:
+  #     - check-success = test
+  #   priority: 3000
   - name: priority for queue `default`
     conditions:
       - queue-name=default
