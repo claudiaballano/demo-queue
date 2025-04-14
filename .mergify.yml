@@ -31,6 +31,9 @@ pull_request_rules:
   #     queue:
   #       name: lowprio
 
+merge_queue:
+  max_parallel_checks: 5
+  
 queue_rules:
   # - name: hotfix
   #   allow_inplace_checks: false
@@ -58,9 +61,6 @@ queue_rules:
   #   merge_conditions:
   #     - check-success = test-before-merge
 
-merge_queue:
-  max_parallel_checks: 5
-  
 priority_rules:
   # - name: priority for queue `hotfix`
   #   conditions:
