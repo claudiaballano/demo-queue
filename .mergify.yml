@@ -10,7 +10,7 @@ pull_request_rules:
   # If you add the label `autoqueue` on a PR, it will be queued automatically
   - name: automatic queue (hotfix)
     conditions:
-      - label = autoqueue
+      - label = mergeable
       - label = hotfix
     actions:
       queue:
@@ -18,16 +18,17 @@ pull_request_rules:
 
   - name: automatic queue (default)
     conditions:
-      - label = autoqueue
+      - label = mergeable
       - label != hotfix
       - label != lowprio
     actions:
       queue:
         name: default
+        merge_method: fast-forward
 
   - name: automatic queue (lowprio)
     conditions:
-      - label = autoqueue
+      - label = mergeable
       - label = lowprio
     actions:
       queue:
