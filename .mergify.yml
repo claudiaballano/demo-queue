@@ -35,7 +35,6 @@ pull_request_rules:
 
 queue_rules:
   - name: hotfix
-    speculative_checks: 5
     allow_inplace_checks: false
     queue_conditions: []
     # This can be queued without passing the CI
@@ -45,7 +44,6 @@ queue_rules:
       - check-success = test-before-merge
 
   - name: default
-    speculative_checks: 5
     allow_inplace_checks: false
     queue_conditions:
       - check-success = test
@@ -60,3 +58,15 @@ queue_rules:
       - check-success = test
     merge_conditions:
       - check-success = test-before-merge
+
+merge_queue:
+  max_parallel_checks: 5
+priority_rules:
+  - name: priority for queue `hotfix`
+    conditions:
+      - check-success = test
+    priority: 2500
+  - name: priority for queue `default`
+    conditions:
+      - queue-name=default
+    priority: 2250
