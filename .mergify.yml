@@ -57,7 +57,7 @@ priority_rules:
   - name: priority for queue `hotfix`
     conditions:
       - check-success = test
-    priority: 3000
+    priority: 3250
   - name: priority for queue `default`
     conditions:
       - queue-name=default
