@@ -48,7 +48,7 @@ queue_rules:
       - label = enqueue
       # - label != hotfix
       # - label != lowprio
-    merge_method: squash
+    merge_method: merge
     merge_conditions:
       - check-success = test-before-merge
   # - name: lowprio
