@@ -32,7 +32,7 @@ pull_request_rules:
   #       name: lowprio
 
 merge_queue:
-  max_parallel_checks: 5
+  max_parallel_checks: 2
   
 queue_rules:
   # - name: hotfix
@@ -44,12 +44,13 @@ queue_rules:
   #     - check-success = test
   #     - check-success = test-before-merge
   - name: default
+    batch_size: 3
     queue_conditions:
       - check-success = test
       - label = enqueue
       # - label != hotfix
       # - label != lowprio
-    merge_method: squash
+    merge_method: rebase
     merge_conditions:
       - check-success = test-before-merge
   # - name: lowprio
